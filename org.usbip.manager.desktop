@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=USB/IP Manager
+Comment=Manage Linux USB/IP server and shared USB devices
+Exec=usbip-manager
+Icon=usbip-manager
+Terminal=false
+Categories=System;Settings;

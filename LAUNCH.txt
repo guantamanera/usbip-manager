@@ -1,0 +1,90 @@
+USB/IP Manager - Installation and Launch Instructions
+====================================================
+
+Installation requirements (CachyOS / Arch Linux)
+-----------------------------------------------
+
+Install the runtime dependencies if they are not already present:
+
+   sudo pacman -S usbip polkit qt6-base
+
+A graphical desktop session with a Polkit authentication agent is required
+for administrator authorization prompts. No compiler or Qt Creator is needed
+to run the AppImage.
+
+Install and launch
+------------------
+
+1. Open a terminal in the folder containing USBIP_Manager-x86_64.AppImage
+   and the helper subfolder. This folder can be located anywhere.
+
+   If you are starting from the project's root folder, run:
+
+   cd dist
+
+   If your terminal is already in the distribution folder, no cd is needed.
+
+2. Install the administrative helper once:
+
+   sudo ./helper/install-helper.sh
+
+   This installs the root-owned helper and Polkit authorization policy.
+   It does not start the server or share any USB devices.
+   Repeat this step when updating the helper.
+
+3. Launch the application as your normal user:
+
+   ./USBIP_Manager-x86_64.AppImage
+
+   Do not launch the AppImage with sudo.
+   The AppImage itself does not need system-wide installation.
+
+Using the application
+---------------------
+
+- Click Start server and review the network warning.
+- Select a USB device and click Share selected device.
+- Administrative actions display an authorization prompt.
+- Sharing disconnects the device from local applications. Be especially careful
+  with keyboards and mice: sharing them can remove local control.
+- Click Unshare selected device to revoke remote access to that device.
+- Stopping the server prevents new connections but may leave existing clients
+  connected. Unshare devices to disconnect those clients.
+- Device sharing is not automatically restored after reboot.
+
+Remote client
+-------------
+
+On a compatible Linux client with USB/IP installed:
+
+   sudo usbip attach -r SERVER_IP -b BUS_ID
+
+Replace SERVER_IP with the USB/IP server's IP address or hostname.
+Replace BUS_ID with the device's Bus ID shown in the application.
+Other client platforms may require different tools.
+
+Network safety
+--------------
+
+USB/IP does not provide built-in authentication or encryption.
+Use a trusted network or VPN and restrict TCP port 3240 to trusted clients.
+The application does not configure your firewall.
+
+Troubleshooting
+---------------
+
+If permission to execute the AppImage is denied:
+
+   chmod +x USBIP_Manager-x86_64.AppImage
+
+If a FUSE-related error prevents launch:
+
+   ./USBIP_Manager-x86_64.AppImage --appimage-extract-and-run
+
+If administrative controls are disabled, complete step 2.
+If authorization prompts do not appear, run the application from your graphical
+desktop session with a Polkit authentication agent running.
+
+Keep the helper folder with the AppImage when copying this distribution.
+This build targets the CachyOS machine where it was built; compatibility with
+older Linux distributions is not guaranteed.
