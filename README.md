@@ -1,5 +1,5 @@
 # USB/IP Manager
-Share USB devices from linux to any client over USB/IP
+Share USB devices from linux to any client over USB/IP.
 
 
 A Qt 6 Widgets desktop application for the Linux USB/IP server. Shows USB devices,
@@ -33,10 +33,12 @@ Sharing is not automatically restored after reboot or device reconnection.
 
 ## Use
 
-1. Start the server, review the network warning, and authorize the operation.
-2. Select a non-hub device, click Share, and review the local-disconnection warning.
-3. On a compatible client, attach with `sudo usbip attach -r SERVER_IP -b BUS_ID`.
-4. Unshare the device to revoke its export and disconnect an attached client.
+1. Start the server, review the network warning, and authorize the operation. 
+2. Open firewall port, default 3240. In cachyos sudo ufw allow 3240
+3. Select a non-hub device, click Share, and review the local-disconnection warning.
+4. On a compatible client, attach with `sudo usbip attach -r SERVER_IP -b BUS_ID`.
+   On windows I recommend RemoteUSB https://github.com/umaxiaotian/RemoteUSB
+5. Unshare the device to revoke its export and disconnect an attached client.
 
 USB/IP does not provide built-in authentication or encryption. Restrict TCP port
 3240 to trusted clients using your firewall or a VPN. Starting the server uses the
